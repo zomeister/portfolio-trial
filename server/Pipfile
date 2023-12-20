@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+pytest = "*"
+ipdb = "*"
+faker = "*"
+jsonify = "*"
+sqlalchemy-serializer = "*"
+flask-restful = "*"
+flask-cors = "*"
+flask-login = "*"
+flask-bcrypt = "*"
+requests = "*"
+progress = "*"
+colorama = "*"
+emoji = "*"
+jmespath = "*"
+pillow = "*"
+moviepy = "*"
+pendulum = "*"
+numpy = "*"
+pandas = "*"
+matplotlib = "*"
+seaborn = "*"
+urllib3 = "*"
+nltk = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

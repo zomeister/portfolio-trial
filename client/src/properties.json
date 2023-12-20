@@ -1,0 +1,73 @@
+{
+    "properties": [
+        {
+            "name": "length",
+            "emoji": "📏",
+            "options": {
+                "centimeter": {
+                    "abbr": "cm",
+                    "formula": 0.3937,
+                    "compUnit": "inch"
+                },
+                "meter": {
+                    "abbr": "m",
+                    "formula": 100,
+                    "compUnit": "centimeter"
+                },
+                "kilometer": {
+                    "abbr": "km",
+                    "formula": 1000,
+                    "compUnit": "meter"
+                },
+                "inch": {
+                    "abbr": "in",
+                    "formula": 2.54,
+                    "compUnit": "centimeter"
+                },
+                "foot": {
+                    "abbr": "ft",
+                    "formula": 12,
+                    "compUnit": "inch"
+                },
+                "mile": {
+                    "abbr": "mi",
+                    "formula": 5280,
+                    "compUnit": "foot"
+                }
+            }
+        },
+        {
+            "name": "mass",
+            "emoji": "💨",
+            "options": {
+                "gram": {
+                    "abbr": "g",
+                    "formula": 1000,
+                    "compUnit": "gram"
+                },
+                "kilogram": {
+                    "abbr": "kg",
+                    "formula": 1000,
+                    "compUnit": "gram"
+                },
+                "milligram": {
+                    "abbr": "mg",
+                    "formula": 1000000,
+                    "compUnit": "gram"
+                },
+                "ounce": {
+                    "abbr": "oz",
+                    "formula": 0,
+                    "compUnit": "none for conversion unit"
+                },
+                "pound": {
+                    "abbr": "lb",
+                    "formula": 16,
+                    "compUnit": "ounce"
+                }
+            }
+        }
+
+    ]
+
+}
