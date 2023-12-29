@@ -1,7 +1,21 @@
 import { useState } from 'react'
+import { Routes, Route, Link, Outlet } from 'react-router-dom'
+// import logo from './assets/logo.png'
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import logo from './assets/logo.png'
+// import viteLogo from '/vite.svg'
+import './App.scss'
+
+import { UserProvider } from './contexts/UserContext'
+
+import Header from './components/Header'
+
+
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import Blogs from './pages/Blogs'
+import Demos from './pages/Demos'
 
 const properties =
   {
@@ -77,6 +91,17 @@ function App() {
 
   return (
     <>
+    <UserProvider>
+      <Header logo={logo}/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/demos" element={<Demos />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
+      </Routes>
+      <br/>
       <p>{properties.toString()}</p>
       <p>{properties["distance"].toString()}</p>
       <p>{properties["distance"].emoji}</p>
@@ -84,9 +109,9 @@ function App() {
       {/* <PropertySelector name={properties['distance']}/> */}
       {/* <UnitSelector selectors={length} /> */}
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        {/* <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
+        </a> */}
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
@@ -100,6 +125,7 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
+        </UserProvider>
     </>
   )
 }
