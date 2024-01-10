@@ -1,57 +1,47 @@
-import { useState } from 'react'
-import { Routes, Route, Link, Outlet } from 'react-router-dom'
-// import logo from './assets/logo.png'
-import reactLogo from './assets/react.svg'
-import logo from './assets/logo.png'
-// import viteLogo from '/vite.svg'
-import './App.scss'
-
-import { UserProvider } from './contexts/UserContext'
+import { useState, useEffect } from 'react'
+import { Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
+import './styles/App.css'
 
 import Header from './components/Header'
-
+import Footer from './components/Footer'
 
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Blogs from './pages/Blogs'
 import Demos from './pages/Demos'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Profile from './pages/Profile'
+import Logout from './pages/Logout'
 
+import UserContext from './contexts/UserContext'
+import ThemeContext from './contexts/ThemeContext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate()
+  const [user, setUser] = useState(null)
+  const [darkMode, setDarkMode] = useState(false)
 
   return (
     <>
-    <UserProvider>
-      <Header logo={logo}/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/demos" element={<Demos />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
-      </Routes>
-      <br/>
-      <div>
-        {/* <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a> */}
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-        </UserProvider>
+      <ThemeContext.Provider value={{darkMode, setDarkMode}}>
+        <UserContext.Provider value={{user, setUser}}>
+          <Header navigate={navigate}/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/demos" element={<Demos />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+          <Footer />
+        </UserContext.Provider>
+      </ThemeContext.Provider>
     </>
   )
 }

@@ -66,3 +66,6 @@ class CheckSession(Resource):
         else:
             return make_response(user.to_dict(), 200)
 api.add_resource(CheckSession, '/check_session')
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)

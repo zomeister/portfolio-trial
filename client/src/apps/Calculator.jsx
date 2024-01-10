@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import NumPad from '../components/NumPad'
 
 // function OperatorDisplay({ operators, onOperatorChange }) {}
 
@@ -59,6 +60,7 @@ export default function Calculator () {
                 <button onClick={clearInput}>C</button>
                 <button onClick={clearEntry}>CE</button>
             </div>
+            <NumPad />
 
             <form>
                 <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
