@@ -53,11 +53,13 @@ export default function Stopwatch () {
 
     return (
         <div className='stopwatch'>
-            <h1>Stopwatch 
-            | {hours < 10 ? `0${hours}` : hours
-            }:{minutes < 10 ? `0${minutes}` : minutes
-            }:{seconds < 10 ? `0${seconds}` : seconds
-            }</h1>
+            <h1>Stopwatch</h1>
+            <h2 className='font-mono'>
+                { hours < 10 ? `0${hours}` : hours
+                }:{minutes < 10 ? `0${minutes}` : minutes
+                }:{seconds < 10 ? `0${seconds}` : seconds
+                }
+            </h2>
 
             <button onClick={startStopwatch}>Start</button>
             <button onClick={stopStopwatch}>Stop</button>

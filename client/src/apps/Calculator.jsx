@@ -49,18 +49,18 @@ export default function Calculator () {
     return (
         <div className='calculator'>
             <h1>Calculator</h1>
-            <div className='result'>EQ: {input}</div>
+            <div className='result font-mono font-bold'>EQ: {input}</div>
             <div className='buttons'>
                 {buttonArray.map( (item, index) =>
-                    <button key={index} onClick={()=>handleButtonClick(item)}>
+                    <button key={index} onClick={()=>handleButtonClick(item)} className='btn font-mono'>
                         {item}
                     </button>)
                 }
-                <button onClick={calculateResult}>Calculate</button>
-                <button onClick={clearInput}>C</button>
-                <button onClick={clearEntry}>CE</button>
+                <button onClick={calculateResult} className='btn btn-secondary font-mono'>Calculate</button>
+                <button onClick={clearInput} className='btn btn-secondary font-mono'>C</button>
+                <button onClick={clearEntry} className='btn btn-secondary font-mono'>CE</button>
             </div>
-            <NumPad />
+            {/* <NumPad /> */}
 
             <form>
                 <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />

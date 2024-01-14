@@ -12,6 +12,8 @@ def index():
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
+
+
 # -------- SIGNUP, LOGIN, LOGOUT -------- () ---- #
 class Register(Resource):
     def post(self):
@@ -20,7 +22,8 @@ class Register(Resource):
             return make_response({"error": "invalid user data"}, 400)
         try:
             new_user = User(
-                username=userData['username'],
+                first_name=userData['firstName'],
+                last_name=userData['lastName'],
                 email=userData['email'],
             )
             new_user.password_hash = userData['password']
@@ -31,6 +34,35 @@ class Register(Resource):
         except Exception as e:
             return make_response({"error": str(e)}, 500)
 api.add_resource(Register, '/register')
+
+class Profile(Resource):
+    @login_required
+    def post(self):
+        userData = request.get_json()
+        if not userData:
+            return make_response({"error": "invalid user data"}, 400)
+        try:
+            new_profile = Profile(
+                username=userData['username'],
+                bio=userData['bio'],
+                location=userData['location'],
+                photo_url=userData['photo_url'],
+                # user_id=userData['user_id']
+            )
+            return make_response(new_profile.to_dict())
+        except Exception as e:
+            return make_response({"error": str(e)}, 500)
+    @login_required
+    def get(self):
+        user_id = session['user_id']
+        user = User.query.filter_by(id=user_id).first()
+        profile = Profile.query.filter_by(username=user.email).first()
+        return make_response(profile.to_dict(), 200)
+api.add_resource(Profile, '/profile')
+
+
+
+
 class Login(Resource):
     def post(self):
         userData = request.get_json()
@@ -38,7 +70,7 @@ class Login(Resource):
             return make_response({"error": "invalid user data"}, 400)
         username = userData['username']
         password = userData['password']
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=username).first()
         if not user:
             return make_response({"error": "user not found"}, 404)
         elif user.authenticate(password):
@@ -58,6 +90,8 @@ class Logout(Resource):
         except Exception as e:
             return {"error": str(e)}, 500
 api.add_resource(Logout, '/logout')
+
+
 class CheckSession(Resource):
     def get(self):
         user = User.query.filter_by(id=session['user_id']).first()

@@ -22,7 +22,7 @@ export default function Timer () {
 
     return (
         <div className='timer'>
-            <h1>Timer: {timeRemaining}</h1>
+            <h1>Timer: <span className="countdown font-mono text-6xl">{timeRemaining}</span></h1>
             <button onClick={startTimer}>Start</button>
             <button onClick={stopTimer}>Stop</button>
             <button onClick={resetTimer}>Reset</button>
