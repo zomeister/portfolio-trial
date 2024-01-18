@@ -15,19 +15,20 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Logout from './pages/Logout'
 
-import UserContext from './contexts/UserContext'
 import ThemeContext from './contexts/ThemeContext'
+import UserContext from './contexts/UserContext'
 
 function App() {
   const navigate = useNavigate()
+
   const [user, setUser] = useState(null)
-  const [darkMode, setDarkMode] = useState(false)
+  const [theme, setTheme] = useState('light')
 
   return (
     <>
-      <ThemeContext.Provider value={{darkMode, setDarkMode}}>
+      <ThemeContext.Provider value={{theme, setTheme}}>
         <UserContext.Provider value={{user, setUser}}>
-          <Header navigate={navigate}/>
+          <Header navigate={navigate} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

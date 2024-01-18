@@ -13,11 +13,10 @@ function Register () {
                 initialValues={{
                     firstName: '',
                     lastName:'',
-                    username: '',
                     email: '',
-                    phoneNumber: null,
+                    // phoneNumber: null,
                     password: '',
-                    birthday: null,
+                    // birthday: '1900-01-01',
                 }}
                 validationSchema={yup.object().shape({
                     firstName: yup.string()
@@ -28,22 +27,18 @@ function Register () {
                         .min(3, 'Min of 3')
                         .max(30, 'Max of 30')
                         .required('lastName required'),
-                    username: yup.string()
+                    email: yup.string()
                         .min(3, 'Min of 3')
                         .max(30, 'Max of 30')
-                        .required('username required'),
-                    email: yup.string()
-                        .email('Invalid email')
-                        .notRequired(),
-                    phoneNumber: yup.string()
-                        .notRequired(),
+                        .required('email required'),
+                    // phoneNumber: yup.string()
+                    //     .notRequired(),
                     password: yup.string()
                         .required('password required'),
-                    birthday: yup.date()
-                        .notRequired(),
+                    // birthday: yup.date()
+                    //     .notRequired(),
                 })}
-                onSubmit={(values, actions) => {
-                    console.log(values)
+                onSubmit={(values) => {
                     fetch('/api/register', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
@@ -60,7 +55,7 @@ function Register () {
                 <Form>
                     <div className='form-group'>
                         <label htmlFor='first-name'>First Name*</label>
-                        <Field type='first-name' name='first-name' id='first-name' className='input input-bordered w-full max-w-xs' />
+                        <Field type='first-name' name='first-name' className='input input-bordered w-full max-w-xs' />
                         <ErrorMessage name='first-name' component='div' />
                     </div>
                     <div className='form-group'>
@@ -69,25 +64,20 @@ function Register () {
                         <ErrorMessage name='last-name' component='div' />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='username'>Username*</label>
-                        <Field type='username' name='username' id='username' className='input input-bordered w-full max-w-xs' />
-                        <ErrorMessage name='username' component='div' />
-                    </div>
-                    <div className='form-group'>
-                        <label htmlFor='email'>Email</label>
+                        <label htmlFor='email'>Email*</label>
                         <Field type='email' name='email' id='email' className='input input-bordered w-full max-w-xs' />
                         <ErrorMessage name='email' component='div' />
                     </div>
-                    {/* <div className='form-group font font-mono'>
+                    {/* <div className='form-group'>
                         <label htmlFor='phone-number'>Phone Number</label>
-                        <Field type='number' name='phone-number' id='phone-number' className='input input-bordered w-full max-w-xs' />
-                        <ErrorMessage name='email' component='div' />
+                        <Field type='number' name='phone-number' id='phone-number' className='input input-bordered font-mono w-full max-w-xs' />
+                        <ErrorMessage name='phone-number' component='div' />
                     </div> */}
-                    <div className='form-group'>
+                    {/* <div className='form-group'>
                         <label htmlFor='birthday'>Birthday</label>
-                        <Field type='date' name='birthday' id='birthday' className='input input-bordered w-full max-w-xs' />
-                        <ErrorMessage name='email' component='div' />
-                    </div>
+                        <Field type='date' name='birthday' id='birthday' className='input input-bordered font-mono w-full max-w-xs' />
+                        <ErrorMessage name='birthday' component='div' />
+                    </div> */}
                     <div className='form-group'>
                         <label htmlFor='password'>Password*</label>
                         <Field type='password' name='password' id='password' className='input input-bordered w-full max-w-xs' />

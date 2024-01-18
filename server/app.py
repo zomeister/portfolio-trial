@@ -101,5 +101,19 @@ class CheckSession(Resource):
             return make_response(user.to_dict(), 200)
 api.add_resource(CheckSession, '/check_session')
 
+class AuthorizeSession(Resource):
+    def get(self):
+         try:
+             if current_user.is_authenticated:
+                 profile = current_user
+             return make_response(profile.to_dict(), 200)
+         except Exception as e:
+            traceback.print_exc()
+            return {"error": "An error occurred while fetching the order history", "message": str(e)}, 500
+        
+api.add_resource(AuthorizeSession, '/authorize_session')
+
+
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

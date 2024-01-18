@@ -73,11 +73,11 @@ python app.py
 
 [***`requests`***](https://requests.readthedocs.io/en/latest/)
 
+[***`faker`***](https://faker.readthedocs.io/en/master/) - **`Faker`**, `.name() .address() .text() .color() .phone_number() .ssn() .emoji() .date_time() .company()`
+
 [***`ipdb`***](https://pypi.org/project/ipdb/#description)
 
 [***`pytest`***](https://docs.pytest.org/en/6.2.x/index.html)
-
-[`faker`](https://flask.palletsprojects.com/en/3.0.x/)
 
 [`emoji`](https://flask.palletsprojects.com/en/3.0.x/)
 
@@ -98,5 +98,31 @@ python app.py
 - **`/messages`** -
 - **`/messages/<string:friend_username>`** -
 - **`/profile`** -
+
+| API Route                            | Method                   | Body | Response | Description                          |
+|--------------------------------------|--------------------------|------|----------|--------------------------------------|
+| `/api/authorize_session`             | `GET`                    |      |          |                                      |
+| `/api/check_session`                 | `GET`                    |      |          |                                      |
+| `/api/login`                         | `POST`                   |      |          |                                      |
+| `/api/register`                      | `POST`                   |      |          |                                      |
+| `/api/logout`                        | `DELETE`                 |      |          |                                      |
+| `/api/users`                         | `POST`                   |      |          |                                      |
+| `/api/users/<int:id>`                | `GET`                    |      |          |                                      |
+|                                      | `PATCH`                  |      |          |                                      |
+| `/api/users/<int:id>`                |                          |      |          |                                      |
+| `/api/user_profiles`                 | `GET`, `POST`            |      |          |                                      |
+| `/api/user_profiles/<int:id>`        | `GET`                    |      |          |                                      |
+|                                      | `PATCH`                  |      |          |                                      |
+|                                      | `DELETE`                 |      |          |                                      |
+| `/api/user_friendships`              | `GET`                    |      |          |                                      |
+|                                      | `POST`                   |      |          |                                      |
+| `/api/user_friendships/<int:id>`     | `GET`, `PATCH`, `DELETE` |      |          |                                      |
+| `/api/conversations`                 | `GET`                    |      |          | All convos for user                  |
+| `/api/conversations/<int:friend_id>` | `GET`, `POST`            |      |          | Convo for user with specified friend |
+| `/api/messages`                      |                          |      |          |                                      |
+| `/api/messages/<int:>`               |                          |      |          |                                      |
+|                                      |                          |      |          |                                      |
+
+
 
 ## II. Models

@@ -8,16 +8,40 @@ from config import db, bcrypt
 class User(db.Model, UserMixin, SerializerMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
-    # username = db.Column(db.String)
-    # birthday = db.Column(db.DateTime)
+    username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
     
-    # profile = db.relationship('Profile', backref='user', uselist=False)
+    
+    
+    
+    
+    @validates('first_name', 'last_name')
+    def validate_name(self, key, new_name):
+        if not 2 <= len(new_name) <= 28:
+            raise ValueError('len(name):[2,28], first_name & last_name  must be an email including @ and . characters')
+        return new_name
+    @validates('username')
+    def validate_username(self, key, new_username):
+        if not 4 <= len(new_username) <= 160 and '@' in new_username and '.' in new_username:
+            raise ValueError('len(username):[4,160], username must be an email including @ and . characters')
+        return new_username
+    
+    
+    
+    
+    bio = db.Column(db.String)
+    location = db.Column(db.String)
+    photo_url = db.Column(db.String)
     
     serialize_rules = ()
+    
+    def __repr__(self):
+        return f"<User(name:{self.first_name} {self.last_name}, email:{self.username})>"
+    # def __repr__(self):
+    #     return f"<User(name:{self.first_name} {self.last_name}, email:{self.username})>"
     
     @hybrid_property
     def password_hash(self):
@@ -33,14 +57,11 @@ class User(db.Model, UserMixin, SerializerMixin):
     #     if not 3 <= len(new_username) <= 40:
     #         raise ValueError('len(username):[3,40]')
     #     return new_username
-    @validates('email')
-    def validate_name(self, key, new_email):
-        if not 200 >= len(new_email) >= 4 and '@' in new_email and '.' in new_email:
-            raise ValueError('len(email):[4,200], email must include @ and . characters')
-        return new_email
-    serialize_rules = ()
-    def __repr__(self):
-        return f"<User(name:{self.first_name} {self.last_name}, email:{self.email})>"
+    @validates('username')
+    def validate_username(self, key, new_username):
+        if not 4 <= len(new_username) <= 160 and '@' in new_username and '.' in new_username:
+            raise ValueError('len(username):[4,160], username must be an email including @ and . characters')
+        return new_username
 
 
 class Profile (db.Model, SerializerMixin):
