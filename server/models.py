@@ -11,7 +11,7 @@ class User(db.Model, UserMixin, SerializerMixin):
     
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
     
     
@@ -23,8 +23,8 @@ class User(db.Model, UserMixin, SerializerMixin):
         if not 2 <= len(new_name) <= 28:
             raise ValueError('len(name):[2,28], first_name & last_name  must be an email including @ and . characters')
         return new_name
-    @validates('username')
-    def validate_username(self, key, new_username):
+    @validates('email')
+    def validate_username(self, key, new_email):
         if not 4 <= len(new_username) <= 160 and '@' in new_username and '.' in new_username:
             raise ValueError('len(username):[4,160], username must be an email including @ and . characters')
         return new_username

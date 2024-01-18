@@ -18,10 +18,7 @@ def seed_users():
                 users.append( User(
                     first_name=faker.first_name(),
                     last_name=faker.last_name(),
-                    username=faker.email(),
-                    bio=faker.paragraph(),
-                    location=faker.city(),
-                    photo_url=faker.image_url(),
+                    email=faker.email(),
                     password_hash='123456789a',
                 ))
             db.session.add_all(users)

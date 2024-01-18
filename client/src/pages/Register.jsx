@@ -22,11 +22,11 @@ function Register () {
                     firstName: yup.string()
                         .min(3, 'Min of 3')
                         .max(30, 'Max of 30')
-                        .required('firstName required'),
+                        .required('first_name required'),
                     lastName: yup.string()
                         .min(3, 'Min of 3')
                         .max(30, 'Max of 30')
-                        .required('lastName required'),
+                        .required('last_name required'),
                     email: yup.string()
                         .min(3, 'Min of 3')
                         .max(30, 'Max of 30')
@@ -38,7 +38,8 @@ function Register () {
                     // birthday: yup.date()
                     //     .notRequired(),
                 })}
-                onSubmit={(values) => {
+                onSubmit={(values, actions) => {
+                    console.log(values)
                     fetch('/api/register', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
@@ -47,21 +48,21 @@ function Register () {
                     .then(res => res.json())
                     .then(userData => {
                         setUser(userData)
-                        console.log(user)
+                        console.log(userData)
                     })
                     .catch(err => console.error(err))
                 }}
             >
                 <Form>
                     <div className='form-group'>
-                        <label htmlFor='first-name'>First Name*</label>
-                        <Field type='first-name' name='first-name' className='input input-bordered w-full max-w-xs' />
-                        <ErrorMessage name='first-name' component='div' />
+                        <label htmlFor='firstName'>First Name*</label>
+                        <Field type='text' name='firstName' id='firstName' className='input input-bordered w-full max-w-xs' />
+                        <ErrorMessage name='firstName' component='div' />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='last-name'>Last Name*</label>
-                        <Field type='last-name' name='last-name' id='last-name' className='input input-bordered w-full max-w-xs' />
-                        <ErrorMessage name='last-name' component='div' />
+                        <label htmlFor='lastName'>Last Name*</label>
+                        <Field type='text' name='lastName' id='lastName' className='input input-bordered w-full max-w-xs' />
+                        <ErrorMessage name='lastName' component='div' />
                     </div>
                     <div className='form-group'>
                         <label htmlFor='email'>Email*</label>
