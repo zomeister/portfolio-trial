@@ -41,11 +41,23 @@ python app.py
 
 [***`sqlalchemy`***](https://www.sqlalchemy.org/) - `MetaData`
 
+[***`sqlalchemy-serializer`***](https://medium.com/@seanstevens729/flask-sqlalchemy-serializer-a-comprehensive-guide-to-serialization-aec8eeb8b456) - `SerializerMixin`
+
 [***`flask-sqlalchemy`***](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x//) - [`SQLAlchemy`](https://www.sqlalchemy.org/)
 
+[***`flask-migrate`***](https://flask-migrate.readthedocs.io/en/latest/) - handles SQLAlchemy database migrations for flask applications using Alembic
+- `Migrate`
 
-[***`flask-login`***](https://flask-login.readthedocs.io/en/latest/)
+[***`flask-bcrypt`***](https://flask-bcrypt.readthedocs.io/en/1.0.1/) - add bcrypt hashing utilities to application
+- [`Bcrypt`](https://github.com/pyca/bcrypt/)
 
+[***`flask-restful`***](https://flask-restful.readthedocs.io/en/latest/)
+- [`Resource`]()
+- `Api`
+
+[***`flask-cors`***](https://flask-cors.readthedocs.io/en/latest/) - `CORS`
+
+[***`flask-login`***](https://flask-login.readthedocs.io/en/latest/) - user session management for flask (login, logout, remember user)
 - [`UserMixin`]()
   - `<User(bool: is_authenticated, bool: is_active, bool: is_anonymous, str: get_id())>`
 - [`LoginManager`](https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager)
@@ -61,15 +73,8 @@ python app.py
   - `current_user` proxy for current user
   - `confirm_login` sets current session as fresh
 
-[***`flask-bcrypt`***](https://flask-bcrypt.readthedocs.io/en/1.0.1/) - [`Bcrypt`](https://github.com/pyca/bcrypt/)
 
-[***`sqlalchemy-serializer`***](https://medium.com/@seanstevens729/flask-sqlalchemy-serializer-a-comprehensive-guide-to-serialization-aec8eeb8b456) - [`SerializerMixin`]()
 
-[***`flask-migrate`***](https://flask-migrate.readthedocs.io/en/latest/) - `Migrate`
-
-[***`flask-restful`***](https://flask-restful.readthedocs.io/en/latest/) - [`Resource`](), `Api`
-
-[***`flask-cors`***](https://flask-cors.readthedocs.io/en/latest/) - `CORS`
 
 [***`requests`***](https://requests.readthedocs.io/en/latest/)
 
