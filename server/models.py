@@ -11,6 +11,17 @@ class Follow (db.Model, SerializerMixin):
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     following_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    follower = db.relationship("User", back_populates="followers")
+    following = db.relationship("User", back_populates="following")
+    
+    @property
+    def serialize(self):
+        return {
+            'follower_id': self.follower_id,
+            'following_id': self.following_id,
+            'timestamp': self.timestamp
+        }
     def __repr__(self):
         return "<Follow %d to %d>" % (self.follower_id, self.following_id)
     
@@ -18,29 +29,50 @@ class Follow (db.Model, SerializerMixin):
 class Message (db.Model, SerializerMixin):
     __tablename__ = "messages"
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'))  
     receiver_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     content = db.Column(db.String)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    sender = db.relationship("User", back_populates='messages_sent')
+    receiver = db.relationship("User", back_populates='messages_received')
+    
+    serialize_rules = {
+        
+    }
     def __repr__(self):
         return "<Message %d to %d: %s>" % (self.sender_id, self.receiver_id, self.content)
+
+# class Blog (db.Model, SerializerMixin):
+#     __tablename__ = "blogs"
+#     id = db.Column(db.Integer, primary_key=True)
+#     created_at = db.Column(db.DateTime, server_default=db.func.now())
+#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+#     link_url = db.Column(db.String)
     
+#     comments = db.relationship("Comment", backref="blog", cascade="all, delete-orphan")
     
-class Profile (db.Model, SerializerMixin):
-    __tablename__ = 'profiles'
-    id = db.Column(db.Integer, primary_key=True)
+# class Post (db.Model, SerializerMixin):
+#     __tablename__ = "posts"
+#     id = db.Column(db.Integer, primary_key=True)
+#     created_at = db.Column(db.DateTime, server_default=db.func.now())
+#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+#     content = db.Column(db.String)
     
-    
-    
+# class Comment (db.Model, SerializerMixin):
+#     __tablename__ = "comments"
+#     id = db.Column(db.Integer, primary_key=True)
+#     created_at = db.Column(db.DateTime, server_default=db.func.now())
+#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+#     article_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+#     content = db.Column(db.String)
     
 class User(db.Model, UserMixin, SerializerMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    
+    username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
-    
-    username = db.Column(db.String, unique=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     telephone = db.Column(db.String)
@@ -49,8 +81,8 @@ class User(db.Model, UserMixin, SerializerMixin):
     location = db.Column(db.String)
     bio = db.Column(db.String)
     
-    # blogs = db.relationship('Blog', back_populates='author', cascade='all, delete-orphan')
-    # messages = db.relationship('Blog', back_populates='author', cascade='all, delete-orphan')
+    comments = db.relationship("Comment", backref="author", cascade="all, delete-orphan")
+    blogs = db.relationship("Blog", backref="author", cascade="all, delete-orphan")
     
     messages_sent = db.relationship(
         'Message',
@@ -69,7 +101,7 @@ class User(db.Model, UserMixin, SerializerMixin):
     # following_list = db.relationship(
     #     'Follow',
     #     foreign_keys=[Follow.follower_id],
-    #     backref=db.backref('follower_backref', lazy='join'),
+    #     backref='follower',
     #     lazy='dynamic',
     #     cascade='all, delete-orphan'
     # )
@@ -77,23 +109,23 @@ class User(db.Model, UserMixin, SerializerMixin):
     # follower_list = db.relationship(
     #     'Follow',
     #     foreign_keys=[Follow.following_id],
-    #     backref=db.backref('following_backref', lazy='join'),
+    #     backref='following',
     #     lazy='dynamic',
     #     cascade='all, delete-orphan'
     # )
     
     
     
-    @validates('first_name', 'last_name')
-    def validate_name(self, key, new_name):
-        if not 2 <= len(new_name) <= 28:
-            raise ValueError('len(name):[2,28], first_name & last_name  must be an email including @ and . characters')
-        return new_name
-    @validates('username')
-    def validate_username(self, key, new_username):
-        if not 4 <= len(new_username) <= 160 and '@' in new_username and '.' in new_username:
-            raise ValueError('len(username):[4,160], username must be an email including @ and . characters')
-        return new_username
+    @validates('first_name', 'last_name', 'username')
+    def validate_name(self, key, value):
+        if not 2 <= len(value) <= 34:
+            raise ValueError('len(firstName, lastName, username):[2,34]')
+        return value
+    @validates('email')
+    def validate_username(self, key, value):
+        if not 4 <= len(value) <= 120 and '@' in value and '.' in value:
+            raise ValueError('len(email):[4,120], email must include @ and . characters')
+        return value
     
     serialize_rules = ()
     
@@ -122,27 +154,22 @@ class Friendship (db.Model, SerializerMixin):
     rec_user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     status = db.Column(db.String)
     # messages = db.relationship("Message", backref="friendships", cascade="all, delete-orphan")
-
-# class Blog (db.Model, SerializerMixin):
-#     __tablename__ = "blogs"
-#     id = db.Column(db.Integer, primary_key=True)
-#     created_at = db.Column(db.DateTime, server_default=db.func.now())
-#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-#     link_url = db.Column(db.String)
+class Comment (db.Model, SerializerMixin):
+    __tablename__ = "friendships"
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime)
+    updated_at = db.Column(db.DateTime)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+    content = db.Column(db.String)
     
-#     comments = db.relationship("Comment", backref="blog", cascade="all, delete-orphan")
+class Blog (db.Model, SerializerMixin):
+    __tablename__ = "blogs"
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime)
+    updated_at = db.Column(db.DateTime)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    status = db.Column(db.String)
+    content = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship("Comment", backref="blog", cascade="all, delete-orphan")
     
-# class Post (db.Model, SerializerMixin):
-#     __tablename__ = "posts"
-#     id = db.Column(db.Integer, primary_key=True)
-#     created_at = db.Column(db.DateTime, server_default=db.func.now())
-#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-#     content = db.Column(db.String)
-    
-# class Comment (db.Model, SerializerMixin):
-#     __tablename__ = "comments"
-#     id = db.Column(db.Integer, primary_key=True)
-#     created_at = db.Column(db.DateTime, server_default=db.func.now())
-#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-#     article_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
-#     content = db.Column(db.String)

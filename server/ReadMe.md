@@ -37,29 +37,28 @@ python app.py
 
 ## II. Packages
 
-[***`flask`***](https://flask.palletsprojects.com/en/3.0.x/) - `Flask`, `session`, `request`, `make_response`, `jsonify`, `abort`
+- [***`flask`***](https://flask.palletsprojects.com/en/3.0.x/) - `Flask`, `session`, `request`, `make_response`, `jsonify`, `abort`
 
-[***`sqlalchemy`***](https://www.sqlalchemy.org/) - `MetaData`
+- [***`sqlalchemy`***](https://www.sqlalchemy.org/) - `MetaData`
 
-[***`sqlalchemy-serializer`***](https://medium.com/@seanstevens729/flask-sqlalchemy-serializer-a-comprehensive-guide-to-serialization-aec8eeb8b456) - `SerializerMixin`
+- [***`sqlalchemy-serializer`***](https://medium.com/@seanstevens729/flask-sqlalchemy-serializer-a-comprehensive-guide-to-serialization-aec8eeb8b456) - `SerializerMixin`
 
-[***`flask-sqlalchemy`***](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x//) - [`SQLAlchemy`](https://www.sqlalchemy.org/)
+- [***`flask-sqlalchemy`***](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x//) - [`SQLAlchemy`](https://www.sqlalchemy.org/)
 
-[***`flask-migrate`***](https://flask-migrate.readthedocs.io/en/latest/) - handles SQLAlchemy database migrations for flask applications using Alembic
-- `Migrate`
+- [***`flask-migrate`***](https://flask-migrate.readthedocs.io/en/latest/) - handles SQLAlchemy database migrations for flask applications using Alembic
+  - `Migrate`
 
-[***`flask-bcrypt`***](https://flask-bcrypt.readthedocs.io/en/1.0.1/) - add bcrypt hashing utilities to application
-- [`Bcrypt`](https://github.com/pyca/bcrypt/)
+- [***`flask-bcrypt`***](https://flask-bcrypt.readthedocs.io/en/1.0.1/) - add bcrypt hashing utilities to application
+  - [`Bcrypt`](https://github.com/pyca/bcrypt/)
 
-[***`flask-restful`***](https://flask-restful.readthedocs.io/en/latest/)
-- [`Resource`]()
-- `Api`
+- [***`flask-restful`***](https://flask-restful.readthedocs.io/en/latest/)
+  - [`Resource`]()
+  - `Api`
 
-[***`flask-cors`***](https://flask-cors.readthedocs.io/en/latest/) - `CORS`
+- [***`flask-cors`***](https://flask-cors.readthedocs.io/en/latest/) - `CORS`
 
-[***`flask-login`***](https://flask-login.readthedocs.io/en/latest/) - user session management for flask (login, logout, remember user)
-- [`UserMixin`]()
-  - `<User(bool: is_authenticated, bool: is_active, bool: is_anonymous, str: get_id())>`
+- [***`flask-login`***](https://flask-login.readthedocs.io/en/latest/) - user session management for flask (login, logout, remember user)
+  - [`UserMixin`]() - `<User(bool: is_authenticated, bool: is_active, bool: is_anonymous, str: get_id())>`
 - [`LoginManager`](https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager)
   - `@login_required` current user required LOGIN and AUTHENTICATION (Protecting Views)
   - `@fresh_login_required` current user required LOGIN and AUTHENTICATION without looking at cookies (Protecting Views)
@@ -73,22 +72,23 @@ python app.py
   - `current_user` proxy for current user
   - `confirm_login` sets current session as fresh
 
+- [***`flask-wtf`***](https://wtforms.readthedocs.io/en/3.0.x/) -form validation and rendering library
+  - `Migrate`
 
 
+- [***`requests`***](https://requests.readthedocs.io/en/latest/)
 
-[***`requests`***](https://requests.readthedocs.io/en/latest/)
+- [***`faker`***](https://faker.readthedocs.io/en/master/) - **`Faker`**, `.name() .address() .text() .color() .phone_number() .ssn() .emoji() .date_time() .company()`
 
-[***`faker`***](https://faker.readthedocs.io/en/master/) - **`Faker`**, `.name() .address() .text() .color() .phone_number() .ssn() .emoji() .date_time() .company()`
+- [***`ipdb`***](https://pypi.org/project/ipdb/#description)
 
-[***`ipdb`***](https://pypi.org/project/ipdb/#description)
+- [***`pytest`***](https://docs.pytest.org/en/6.2.x/index.html)
 
-[***`pytest`***](https://docs.pytest.org/en/6.2.x/index.html)
+- [`emoji`](https://flask.palletsprojects.com/en/3.0.x/)
 
-[`emoji`](https://flask.palletsprojects.com/en/3.0.x/)
+- [`progress`](https://flask.palletsprojects.com/en/3.0.x/)
 
-[`progress`](https://flask.palletsprojects.com/en/3.0.x/)
-
-[`colorama`](https://flask.palletsprojects.com/en/3.0.x/)
+- [`colorama`](https://flask.palletsprojects.com/en/3.0.x/)
 
 
 ## II. Routes
@@ -102,32 +102,38 @@ python app.py
 - **`/friends/<int:profile_id>`** - `GET`, `DELETE`
 - **`/messages`** -
 - **`/messages/<string:friend_username>`** -
-- **`/profile`** -
+- **`/profile`**
 
-| API Route                            | Method                   | Body | Response | Description                          |
-|--------------------------------------|--------------------------|------|----------|--------------------------------------|
-| `/api/authorize_session`             | `GET`                    |      |          |                                      |
-| `/api/check_session`                 | `GET`                    |      |          |                                      |
-| `/api/login`                         | `POST`                   |      |          |                                      |
-| `/api/register`                      | `POST`                   |      |          |                                      |
-| `/api/logout`                        | `DELETE`                 |      |          |                                      |
-| `/api/users`                         | `POST`                   |      |          |                                      |
-| `/api/users/<int:id>`                | `GET`                    |      |          |                                      |
-|                                      | `PATCH`                  |      |          |                                      |
-| `/api/users/<int:id>`                |                          |      |          |                                      |
-| `/api/user_profiles`                 | `GET`, `POST`            |      |          |                                      |
-| `/api/user_profiles/<int:id>`        | `GET`                    |      |          |                                      |
-|                                      | `PATCH`                  |      |          |                                      |
-|                                      | `DELETE`                 |      |          |                                      |
-| `/api/user_friendships`              | `GET`                    |      |          |                                      |
-|                                      | `POST`                   |      |          |                                      |
-| `/api/user_friendships/<int:id>`     | `GET`, `PATCH`, `DELETE` |      |          |                                      |
-| `/api/conversations`                 | `GET`                    |      |          | All convos for user                  |
-| `/api/conversations/<int:friend_id>` | `GET`, `POST`            |      |          | Convo for user with specified friend |
-| `/api/messages`                      |                          |      |          |                                      |
-| `/api/messages/<int:>`               |                          |      |          |                                      |
-|                                      |                          |      |          |                                      |
 
+-------------------------------------------------------------------------------------------------------------------------------------------------
+| API Route                                   | Method   | Body           | Response              | Description                                 |
+|---------------------------------------------|----------|----------------|-----------------------|---------------------------------------------|
+| `/register`                                 | `POST`   | form OR json   | {UserSchema}, 201     | Create new <User>                           |
+| `/login`                                    | `POST`   | form OR json   | {UserSchema}, 200     | Authenticate <User>                         |
+| `/logout`                                   | `DELETE` |                | {}, 204               | Set current User to null                    |
+| `/api/authorize_session`                    | `GET`    |                |                       |                                             |
+| `/api/check_session`                        | `GET`    |                |                       |                                             |
+| `/api/users`                                | `POST`   |                |                       |                                             |
+| `/api/users/<int:id>`                       | `GET`    |                |                       |                                             |
+|                                             | `PATCH`  |                |                       |                                             |
+| `/api/users/<int:id>`                       |          |                |                       |                                             |
+| `/api/user_profiles`                        | `GET`    |                |                       |                                             |
+|                                             | `POST`   |                |                       |                                             |
+| `/api/user_profiles/<int:id>`               | `GET`    |                |                       |                                             |
+|                                             | `PATCH`  |                |                       |                                             |
+|                                             | `DELETE` |                |                       |                                             |
+| `/api/user_friendships`                     | `GET`    |                |                       |                                             |
+|                                             | `POST`   |                |                       |                                             |
+| `/api/user_friendships/<int:id>`            | `GET`    |                |                       |                                             |
+|                                             | `PATCH`  |                |                       |                                             |
+|                                             | `DELETE` |                |                       |                                             |
+| `/api/conversations`                        | `GET`    |                |                       | All convos for user                         |
+| `/api/conversations/<int:friend_id>`        | `GET`    |                |                       | Convo for user with specified friend        |
+|                                             | `POST`   |                |                       | Convo for user with specified friend        |
+| `/api/messages`                             |          |                |                       |                                             |
+| `/api/messages/<int:>`                      |          |                |                       |                                             |
+|                                             |          |                |                       |                                             |
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## II. Models

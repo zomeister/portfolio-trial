@@ -8,11 +8,15 @@ from flask_bcrypt import Bcrypt
 from flask_restful import Api
 from flask_cors import CORS
 from flask_login import LoginManager
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolioapp.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = b"'\xb4\x14f\xfdk\xa8p\xeb\x9d\xf0jmn\x08k"
+# the toolbar is only enabled in debug mode:
+# app.debug = True
+app.config['SECRET_KEY'] = b"'\xb4\x14f\xfdk\xa8p\xeb\x9d\xf0jmn\x08k"
+toolbar = DebugToolbarExtension(app)
 
 # add constraints to table, define metadata naming convention
 metadata = MetaData(

@@ -35,7 +35,7 @@ def seed_follows(users):
             for i in range(10):
                 follows.append( Follow (
                     
-                ))
+                ) )
             db.session.add_all(follows)
             db.session.commit()
             return follows
